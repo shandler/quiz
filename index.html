@@ -1,0 +1,83 @@
+<html>
+<body  onload=document.form1.reset();>
+<form name="form1" id="form1" method="post" action="" >
+
+	<div id='p1'>
+		1.	Bla bla bla.
+ 		<br>
+			<input name="txtResposta1" type="text" id="txtResposta1" size="60" class="resposta">
+		<br>
+    </div>
+	
+	<div id='p2'>
+		2.	Blu blu blu?
+ 		<br>
+			<input name="txtResposta2" type="text" id="txtResposta2" size="60" class="resposta">
+		<br>
+    </div>
+	
+	<div id='p3'>
+		3.	ZIIII?
+ 		<br>
+			<input name="txtResposta3" type="text" id="txtResposta3" size="60" class="resposta">
+		<br>
+	</div>	
+	
+	<div id='dv'>   <br></div>
+
+	<br>
+		<input type="button" id="button" name="button" value="Corrigir">
+	<br>
+		
+</form>
+
+
+<script>
+	;(function(){
+		var doc = document, c=0, e=0,
+			respostaUsuario = doc.querySelectorAll('input.resposta'),
+			respostaCorreta = ['a', 'b', 'c'],
+			resposta = {
+				'certa': 'Sua resposta esta certa',
+				'errada': 'Resposta correta: '
+			},
+			estatistica = {
+				'totalacerto': 'Total de acertos: ',
+				'totalerro': 'Total de erros: '
+			},
+			btn = doc.getElementById('button');
+		function Corrigir() {
+			var i, len = respostaUsuario.length;
+			c=0;
+			e=0;
+			for( i = 0; i < len; i++ ) {
+				var d = doc.createElement('div'), text;
+				if (respostaUsuario[i].value == respostaCorreta[i]) {
+					c++;
+					text = doc.createTextNode(resposta.certa);
+					d.appendChild(text);
+					respostaUsuario[i].parentNode.insertBefore(d, respostaUsuario[i].nextSibling);
+				} else {
+					e++;
+					text = doc.createTextNode(resposta.errada + respostaCorreta[i]);
+					d.appendChild(text);
+					respostaUsuario[i].parentNode.insertBefore(d, respostaUsuario[i].nextSibling);
+				}
+			}
+			var d = doc.createElement('P'), text;
+			text = doc.createTextNode(estatistica.totalacerto + c);
+			d.appendChild(text);
+			dv.parentNode.insertBefore(d, dv.nextSibling);
+			
+			var d = doc.createElement('P'), text;
+			text = doc.createTextNode(estatistica.totalerro + e);
+			d.appendChild(text);
+			dv.parentNode.insertBefore(d, dv.nextSibling);
+			
+			respostaUsuario = [];
+		}
+		btn.addEventListener("click", Corrigir, false);
+	})();
+</script>
+</body>
+</html>
